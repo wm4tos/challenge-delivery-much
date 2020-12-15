@@ -1,0 +1,31 @@
+module.exports = {
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: 'tsconfig.json',
+    tsconfigRootDir: __dirname,
+    sourceType: 'module',
+  },
+  plugins: ['@typescript-eslint/eslint-plugin'],
+  extends: [
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier',
+    'prettier/@typescript-eslint',
+    'airbnb-typescript/base',
+  ],
+  root: true,
+  env: {
+    node: true,
+    jest: true,
+  },
+  rules: {
+    '@typescript-eslint/interface-name-prefix': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    'semi': ['error', 'always'],
+    '@typescript-eslint/explicit-function-return-type': ['error'],
+    'comma-dangle': ['error', 'always-multiline'],
+    'eol-last': ["error", "always"],
+    'import/prefer-default-export': 'off',
+    'radix': ['error', 'as-needed']
+  },
+};
