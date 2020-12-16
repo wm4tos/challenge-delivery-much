@@ -26,6 +26,7 @@ module.exports = {
     'comma-dangle': ['error', 'always-multiline'],
     'eol-last': ["error", "always"],
     'import/prefer-default-export': 'off',
-    'radix': ['error', 'as-needed']
+    'radix': ['error', 'as-needed'],
+    'max-len': ['error', 150],
   },
 };
