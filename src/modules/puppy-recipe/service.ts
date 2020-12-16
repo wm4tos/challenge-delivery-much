@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getReasonPhrase } from 'http-status-codes';
 import { RECIPE_PUPPY_API_URL } from 'src/common/config';
-import { PuppyRecipeErrors } from './errors';
+import { PuppyRecipeErrors } from './errors.enum';
 import { PuppyRecipeDto } from './interfaces/puppy-recipe.dto';
 
 export const getPuppyRecipes = async (ingredients: string[]): Promise<PuppyRecipeDto[]> => {

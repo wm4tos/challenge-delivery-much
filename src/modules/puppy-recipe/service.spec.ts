@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getReasonPhrase } from 'http-status-codes';
-import { PuppyRecipeErrors } from './errors';
+import { PuppyRecipeErrors } from './errors.enum';
 import { PuppyRecipeDto } from './interfaces/puppy-recipe.dto';
 import { getPuppyRecipes } from './service';
 
