@@ -11,7 +11,7 @@ export const getGiphy = async (q: string): Promise<GiphyDto[]> => {
   } catch (err) {
     const { response: { status } } = err;
 
-    err.name = getReasonPhrase(status);
+    err.name = getReasonPhrase(status || 500);
 
     throw err;
   }
