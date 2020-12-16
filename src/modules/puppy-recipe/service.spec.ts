@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getReasonPhrase } from 'http-status-codes';
+import { PuppyRecipeErrors } from './errors';
 import { PuppyRecipeDto } from './interfaces/puppy-recipe.dto';
 import { getPuppyRecipes } from './service';
 
@@ -17,7 +18,10 @@ describe('PuppyRecipe service', () => {
 
   it('should receive bad request error', () => {
     const status = 400;
-    const expected = { name: getReasonPhrase(status) };
+    const expected = {
+      name: getReasonPhrase(status),
+      message: PuppyRecipeErrors.NOT_ONLINE,
+    };
 
     mockedAxios.get.mockRejectedValue({ response: { status } });
 
@@ -26,7 +30,10 @@ describe('PuppyRecipe service', () => {
 
   it('should receive internal server error', () => {
     const status = 500;
-    const expected = { name: getReasonPhrase(status) };
+    const expected = {
+      name: getReasonPhrase(status),
+      message: PuppyRecipeErrors.NOT_ONLINE,
+    };
 
     mockedAxios.get.mockRejectedValue({ response: { status } });
 
