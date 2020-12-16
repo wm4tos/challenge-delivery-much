@@ -50,4 +50,13 @@ describe('Giphy service', () => {
 
     expect(getGiphy('test')).rejects.toMatchObject(expected);
   });
+
+  it('should reject with internal server error', () => {
+    const status = 500;
+    const expected = { name: getReasonPhrase(status) };
+
+    mockedAxios.get.mockRejectedValue({ response: { status } });
+
+    expect(getGiphy('test')).rejects.toMatchObject(expected);
+  });
 });
