@@ -1,3 +1,4 @@
+import { getReasonPhrase } from 'http-status-codes';
 import * as Joi from 'joi';
 import { Validator } from '../interfaces';
 
@@ -11,8 +12,8 @@ export const validator: Validator = (schema, prop) => (req, res, next): void => 
   const { details } = validationError;
 
   const error = {
-    name: 'BAD_REQUEST',
-    message: details.reduce((acc, cur) => `${acc}, ${cur.message}`, ''),
+    name: getReasonPhrase(400),
+    message: details.reduce((acc, cur) => `${acc} ${cur.message}`, '').concat(` on ${prop}.`),
   };
 
   return next(error);
