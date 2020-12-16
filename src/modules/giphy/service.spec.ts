@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getReasonPhrase } from 'http-status-codes';
+import { GiphyErrors } from './error.enum';
 import { GiphyDto } from './interfaces/giphy.dto';
 import { getGiphy } from './service';
 
@@ -17,7 +18,7 @@ describe('Giphy service', () => {
 
   it('should reject with bad request error', () => {
     const status = 400;
-    const expected = { name: getReasonPhrase(status) };
+    const expected = { name: getReasonPhrase(status), message: GiphyErrors.BAD_REQUEST };
 
     mockedAxios.get.mockRejectedValue({ response: { status } });
 
@@ -26,7 +27,7 @@ describe('Giphy service', () => {
 
   it('should reject with forbidden error', () => {
     const status = 403;
-    const expected = { name: getReasonPhrase(status) };
+    const expected = { name: getReasonPhrase(status), message: GiphyErrors.FORBIDDEN };
 
     mockedAxios.get.mockRejectedValue({ response: { status } });
 
@@ -35,7 +36,7 @@ describe('Giphy service', () => {
 
   it('should reject with not found error', () => {
     const status = 404;
-    const expected = { name: getReasonPhrase(status) };
+    const expected = { name: getReasonPhrase(status), message: GiphyErrors.NOT_FOUND };
 
     mockedAxios.get.mockRejectedValue({ response: { status } });
 
@@ -44,7 +45,7 @@ describe('Giphy service', () => {
 
   it('should reject with too many requests error', () => {
     const status = 429;
-    const expected = { name: getReasonPhrase(status) };
+    const expected = { name: getReasonPhrase(status), message: GiphyErrors.TOO_MANY_REQUESTS };
 
     mockedAxios.get.mockRejectedValue({ response: { status } });
 
@@ -53,7 +54,7 @@ describe('Giphy service', () => {
 
   it('should reject with internal server error', () => {
     const status = 500;
-    const expected = { name: getReasonPhrase(status) };
+    const expected = { name: getReasonPhrase(status), message: GiphyErrors.NOT_ONLINE };
 
     mockedAxios.get.mockRejectedValue({ response: { status } });
 
