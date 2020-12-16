@@ -7,7 +7,8 @@
     "build": "tsc",
     "start": "node --inspect=5858 -r ts-node/register ./src/server.ts",
     "start:dev": "nodemon",
-    "test": "npx jest --verbose"
+    "test": "npx jest --verbose",
+    "test:watchAll": "npx jest --watchAll --verbose"
   },
   "repository": {
     "type": "git",
