@@ -3,15 +3,21 @@ import * as giphyService from '../giphy/service';
 import { MappedPuppyRecipeDto } from '../puppy-recipe/interfaces/mapped-puppy-recipe.dto';
 import { PuppyRecipeDto } from '../puppy-recipe/interfaces/puppy-recipe.dto';
 import * as puppyRecipeService from '../puppy-recipe/service';
+import * as repository from './repository';
 import { RecipeDto } from './interfaces/recipe.dto';
 import { mapRecipes } from './mapper';
 import { getRecipes } from './service';
 
 jest.mock('../giphy/service');
 jest.mock('../puppy-recipe/service');
+jest.mock('./repository');
+jest.mock('redis', () => ({
+  createClient: jest.fn(),
+}));
 
 const mockedGiphyService = giphyService as jest.Mocked<typeof giphyService>;
 const mockedPuppyRecipeService = puppyRecipeService as jest.Mocked<typeof puppyRecipeService>;
+const mockedRepository = repository as jest.Mocked<typeof repository>;
 
 describe('Recipes service', () => {
   const mockedGifs = [
@@ -71,12 +77,28 @@ describe('Recipes service', () => {
     },
   ] as PuppyRecipeDto[];
 
-  it('should return recipes correctly', () => {
+  let mappedValue: RecipeDto[];
+
+  beforeEach(() => {
+    mappedValue = null;
+
+    mappedValue = (mapRecipes(mockedPuppyRecipes) as MappedPuppyRecipeDto[]).map(
+      (item) => ({ ...item, gif: mockedGifs[0].url }) as RecipeDto,
+    );
+  });
+
+  it('should return recipes from external modules', () => {
     mockedPuppyRecipeService.getPuppyRecipes.mockResolvedValue(mockedPuppyRecipes);
     mockedGiphyService.getGiphy.mockResolvedValue(mockedGifs);
 
-    expect(getRecipes(['tomato'])).resolves.toStrictEqual((mapRecipes(mockedPuppyRecipes) as MappedPuppyRecipeDto[]).map(
-      (item) => ({ ...item, gif: mockedGifs[0].url }) as RecipeDto,
-    ));
+    mockedRepository.get.mockReturnValue(null);
+
+    expect(getRecipes(['tomato'])).resolves.toStrictEqual(mappedValue);
+  });
+
+  it('should return recipes from repository', () => {
+    mockedRepository.get.mockReturnValue(mappedValue);
+
+    expect(getRecipes(['tomato'])).resolves.toStrictEqual(mappedValue);
   });
 });
