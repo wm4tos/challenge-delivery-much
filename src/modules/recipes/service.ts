@@ -5,6 +5,7 @@ import { MappedPuppyRecipeDto } from '../puppy-recipe/interfaces/mapped-puppy-re
 import { getPuppyRecipes } from '../puppy-recipe/service';
 import { RecipeDto } from './interfaces/recipe.dto';
 import { mapGiphyUrl, mapRecipes } from './mapper';
+import { get, save } from './repository';
 
 export const getAndMapRecipes = composeWith<string[], MappedPuppyRecipeDto[] | Promise<MappedPuppyRecipeDto[]>>(
   then, [
@@ -16,10 +17,19 @@ export const getAndMapRecipes = composeWith<string[], MappedPuppyRecipeDto[] | P
 export const getAndMapGiphy = composeWith<string, Promise<string> | string>(then, [mapGiphyUrl, getGiphy]);
 
 export const getRecipes = async (ingredients: string[]): Promise<RecipeDto[]> => {
-  const recipes = await getAndMapRecipes(ingredients);
+  const key = ingredients.join(',');
+  const recipesFromRedis = await get(key);
 
-  return Promise.all(recipes.map(async (recipe) => ({
+  if (recipesFromRedis) return recipesFromRedis;
+
+  const puppyRecipes = await getAndMapRecipes(ingredients);
+
+  const recipes = await Promise.all(puppyRecipes.map(async (recipe) => ({
     ...recipe,
     gif: await getAndMapGiphy(recipe.title),
   })));
+
+  save(key, recipes);
+
+  return recipes;
 };
