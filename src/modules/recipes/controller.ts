@@ -8,7 +8,7 @@ export const getRecipesRoute: RequestHandler = async (req, res, next) => {
   try {
     const { i } = req.query;
 
-    const keywords = (i as string).split(',');
+    const keywords = (i as string).split(',').sort();
 
     const recipes = await getRecipes(keywords);
 
