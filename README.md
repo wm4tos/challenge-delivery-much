@@ -20,12 +20,9 @@ Esse é o teste técnico realizado para o processo seletivo da [Delivery Much](h
 * Rode o comando `docker-compose up` para subir o container em tempo real.
 
 ## Como rodar os testes
-Nessa aplicação, foram escritos testes apenas para as funções essencias da aplicação, ou seja, não foram escritos testes para a camada de "interface" (contato externo) da aplicação, apenas para testar o funcionamento do algoritmo de dijkstra.
-
-Para rodar esses testes, siga as instruções:
 ### Se já tiver buildado a imagem do docker
-* Rode o comando `npm run test` e verá o resultado dos testes realizados.
+* Rode o comando `npm run test` e verá o resultado dos testes realizados ou `npm run test:watchAll` para rodar os testes com a flag --watchAll ativada.
 
 ### Se ainda não tiver buildado a imagem do docker, rode o comando
 * Rode o comando `npm install` para instalar as dependências do projeto.
-* Rode o comando `npm run test` para ver o resultado dos testes.
+* Rode o comando `npm run test` para ver o resultado dos testes ou `npm run test:watchAll` para rodar os testes com a flag --watchAll ativada.
