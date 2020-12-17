@@ -32,10 +32,12 @@
   },
   "homepage": "https://github.com/wricke/challenge-delivery_much#readme",
   "devDependencies": {
+    "@types/bluebird": "^3.5.33",
     "@types/express": "^4.17.9",
     "@types/jest": "^26.0.18",
     "@types/node": "^14.14.11",
     "@types/ramda": "^0.27.33",
+    "@types/redis": "^2.8.28",
     "@types/supertest": "^2.0.10",
     "@typescript-eslint/eslint-plugin": "^4.9.1",
     "@typescript-eslint/parser": "^4.9.1",
@@ -58,6 +60,7 @@
   },
   "dependencies": {
     "axios": "^0.21.0",
+    "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
@@ -65,6 +68,7 @@
     "joi": "^17.3.0",
     "ramda": "^0.27.1",
     "ramda-adjunct": "^2.29.0",
+    "redis": "^3.0.2",
     "winston": "^3.3.3"
   },
   "nodemonConfig": {
