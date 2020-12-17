@@ -7,9 +7,15 @@ export const errorHandler: ErrorRequestHandler = (_err, req, res, next) => {
 
   const { log = {} } = _err;
 
-  logger.error(JSON.stringify({
-    ...log, endpoint: req.url, response: err, statusCode: err.status,
-  }));
+  try {
+    logger.error(JSON.stringify({
+      ...log, endpoint: req.url, response: err, statusCode: err.status, error: _err,
+    }));
+  } catch (e) {
+    logger.error(JSON.stringify({
+      ...log, endpoint: req.url, response: err, statusCode: err.status, e,
+    }));
+  }
 
   return res.status(err.status).json(err);
 };
