@@ -8,7 +8,8 @@ Esse é o teste técnico realizado para o processo seletivo da [Delivery Much](h
 * Dentro dos módulos, escolhi separar por controller, service, repository e um arquivo pras rotas.
   * Talvez soe repetitivo e algumas pessoas optariam por juntar controller e service, mas eu prefiro manter com a separação atual pois na service posso tratar de transformações nos objetos e executar as regras de negócio (por exemplo), enquanto na controller eu me preocupo apenas com a camada http.
   * Optei também por não juntar o arquivo de rotas com a controller pois assim acho que fica mais fácil desacopar, pois caso eu queira usar outro framework para servir http (como o [Fastify](https://www.fastify.io/) por exemplo), eu apenas preciso manter o contrato da função (parseando os tipos dos parâmetros passados para a função existente na controller).
-* Optei por não usar nenhum banco de dados ou sistema de cache pois isso iria apenas aumentar a complexidade da aplicação desnecessariamente. Caso isso se faça necessário, graças a programação modular e a forma que o código foi escrito implementar um banco de dados será muito fácil :)
+* ~~Optei por não usar nenhum banco de dados ou sistema de cache pois isso iria apenas aumentar a complexidade da aplicação desnecessariamente. Caso isso se faça necessário, graças a programação modular e a forma que o código foi escrito implementar um banco de dados será muito fácil :)~~
+* Decidi implementar cache com redis para melhorar o tempo de resposta da rota de receitas. Enquanto uma requisição comum dura cerca de 3384.413ms, uma requisição com redis dura menos de 9.033ms.
 
 ## Requisitos
 É necessário ter o [docker](https://docs.docker.com/get-docker/) e o [docker-compose](https://docs.docker.com/compose/install/) instalados na sua máquina.
