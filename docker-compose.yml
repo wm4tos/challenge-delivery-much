@@ -2,13 +2,30 @@ version: '3'
 
 services:
   api:
-    container_name: delivery_much_challenge_api
+    container_name: delivery_much_api
     image: wricke/delivery_much_challenge
+    networks:
+      - redis_db
     ports:
       - "3000:3000"
     command: sh -c "npm install && npm run start:dev"
     working_dir: /app
+    depends_on:
+      - redis
     volumes:
       - ./:/app
     env_file:
       - ./.env
+
+  redis:
+    container_name: delivery_much_redis
+    image: redis
+    restart: always
+    networks:
+      - redis_db
+    command: redis-server
+    expose:
+      - 6379
+
+networks:
+  redis_db:
