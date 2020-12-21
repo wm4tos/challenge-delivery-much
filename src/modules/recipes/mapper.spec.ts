@@ -4,9 +4,17 @@ import { mapGiphyUrl, mapRecipes } from './mapper';
 
 describe('Recipes mapper', () => {
   it('should return list sorted', () => {
-    const list = [{ title: 'd' }, { title: 'b' }, { title: 'e' }, { title: 'c' }, { title: 'a' }] as PuppyRecipeDto[];
+    const list = [
+      { title: 'd', ingredients: '' },
+      { title: 'b', ingredients: '' },
+      { title: 'e', ingredients: '' },
+      { title: 'c', ingredients: '' },
+      { title: 'a', ingredients: '' },
+    ] as PuppyRecipeDto[];
 
-    const sorted = [].concat(list).sort((a, b) => a.title.localeCompare(b.title));
+    const sorted = [].concat(list)
+      .map(({ ingredients, ...rest }) => ({ ingredients: [ingredients], ...rest }))
+      .sort((a, b) => a.title.localeCompare(b.title));
 
     expect(mapRecipes(list)).toStrictEqual(sorted);
   });
