@@ -97,7 +97,7 @@ describe('Recipes service', () => {
   });
 
   it('should return recipes from repository', () => {
-    mockedRepository.get.mockReturnValue(mappedValue);
+    mockedRepository.get.mockResolvedValue(mappedValue);
 
     expect(getRecipes(['tomato'])).resolves.toStrictEqual(mappedValue);
   });
