@@ -1,4 +1,4 @@
 export interface PuppyRecipeBaseDto {
   title: string;
-  ingredients: string;
+  ingredients: string | string[];
 }
